@@ -1,0 +1,12 @@
+# 編譯產物（無副檔名的執行檔）
+bresenham
+drawline
+edgefuntion
+framebuffer
+math3d
+
+# 中間檔
+*.o
+
+# 輸出圖片
+*.ppm
