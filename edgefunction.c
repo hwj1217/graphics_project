@@ -198,7 +198,7 @@ int main(void) {
     draw_triangle(&fb, -30, 60, 40, 110, 60, 50, 0, 120, 200);
     draw_triangle_shaded(&fb, (Vertex){10, 10, 255, 0, 0}, (Vertex){100, 20, 0, 255, 0}, (Vertex){40, 90, 0, 0, 255});
 
-    write_ppm(&fb, "edgefuntion.ppm");
+    write_ppm(&fb, "edgefunction.ppm");
     free(fb.pixels);
     return 0;
 }

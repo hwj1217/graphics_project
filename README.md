@@ -31,8 +31,8 @@ Each file is self-contained and compiles on its own.
 
 ```bash
 # C stages (example)
-gcc -g -Wall -Wextra edgefuntion.c -o edgefuntion
-./edgefuntion
+gcc -g -Wall -Wextra edgefunction.c -o edgefunction
+./edgefunction
 
 # C++ stages
 g++ -g -Wall -Wextra math3d.cpp -o math3d
@@ -48,7 +48,7 @@ PPM files can be opened with most image viewers.
 | `framebuffer.c` | Stage 1: framebuffer and PPM writer | `output.ppm` |
 | `drawline.c` | Stage 2: naive line drawing (baseline for comparison) | `draw_line_naive.ppm` |
 | `bresenham.c` | Stage 2: Bresenham's line algorithm | `draw_line_bresenham.ppm` |
-| `edgefuntion.c` | Stage 3: filled triangles with edge functions, and color interpolation with barycentric coordinates | `edgefuntion.ppm` |
+| `edgefunction.c` | Stage 3: filled triangles with edge functions, and color interpolation with barycentric coordinates | `edgefunction.ppm` |
 | `math3d.cpp` | Stage 4: `Vec3`, `Vec4`, `Mat4` | prints to terminal |
 
 ## Design Decisions
