@@ -12,16 +12,16 @@ This is also a learning project for moving from C to C++. Stages 1–3 are writt
 
 | Stage | Topic | Language | Status |
 |---|---|---|---|
-| 1 | Framebuffer and PPM output | C | ✅ Done |
-| 2 | Line drawing (Bresenham) | C | ✅ Done |
-| 3 | Filled triangles with edge functions and barycentric interpolation | C | ✅ Done |
-| 4a | `Vec3` vector class | C++ | ✅ Done |
-| 4b | `Mat4`, `Vec4`, homogeneous coordinates | C++ | ✅ Done |
-| 4c | Projection: model → view → projection → viewport | C++ | 🚧 In progress |
-| 4d | First 3D cube | C++ | ⬜ Planned |
-| 5 | Full scene with Z-buffer | C++ | ⬜ Planned |
-| 6 | Lighting and textures | C++ | ⬜ Planned |
-| 7 | Ray tracing comparison (optional) | C++ | ⬜ Planned |
+| 1 | Framebuffer and PPM output | C | Done |
+| 2 | Line drawing (Bresenham) | C | Done |
+| 3 | Filled triangles with edge functions and barycentric interpolation | C | Done |
+| 4a | `Vec3` vector class | C++ | Done |
+| 4b | `Mat4`, `Vec4`, homogeneous coordinates | C++ | Done |
+| 4c | Projection: model → view → projection → viewport | C++ | In progress |
+| 4d | First 3D cube | C++ | Planned |
+| 5 | Full scene with Z-buffer | C++ | Planned |
+| 6 | Lighting and textures | C++ | Planned |
+| 7 | Ray tracing comparison (optional) | C++ | Planned |
 
 ## Build and Run
 
