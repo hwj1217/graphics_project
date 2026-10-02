@@ -36,6 +36,10 @@ struct Vec3 {
     Vec3 cross(const Vec3& v) const {    // 向量cross
         return Vec3(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
     }
+
+    void print() const {
+        printf("(%.2f %.2f %.2f)\n", x, y, z);
+    }
 };
 
 struct Vec4 {
@@ -107,6 +111,28 @@ struct Mat4 {
         return result;
     }
 
+    static Mat4 lookAt(const Vec3& eye, const Vec3& target, const Vec3& up) {
+        Vec3 f = (target - eye).normalize();
+        Vec3 r = f.cross(up).normalize();
+        Vec3 u = r.cross(f);
+
+        Mat4 result = Mat4::identity();
+        result.m[0][0] = r.x;
+        result.m[0][1] = r.y;
+        result.m[0][2] = r.z;
+        result.m[0][3] = -r.dot(eye);
+        result.m[1][0] = u.x;
+        result.m[1][1] = u.y;
+        result.m[1][2] = u.z;
+        result.m[1][3] = -u.dot(eye);
+        result.m[2][0] = -f.x;
+        result.m[2][1] = -f.y;
+        result.m[2][2] = -f.z;
+        result.m[2][3] = f.dot(eye);
+
+        return result;
+    }
+
     void print() const {
         for(int row = 0; row < 4; row++) {
             for(int col = 0; col < 4; col++) {
@@ -144,14 +170,9 @@ struct Mat4 {
 };
 
 int main() {
-    Mat4 T = Mat4::translate(5, 0, 0);
-    Mat4 R = Mat4::rotateZ(Mat4::radians(90));
-    Vec4 p = Vec4::point(Vec3(1, 0, 0));
-
-    Vec4 a = T * R * p;
-    Vec4 b = R * T * p;
-
-    a.print();
-    b.print();
+    Mat4 view3 = Mat4::lookAt(Vec3(5, 0, 0), Vec3(0, 0, 0), Vec3(0, 1, 0));
+    view3.print();
+    (view3 * Vec4::point(Vec3(0, 0, 0))).print();
+    (view3 * Vec4::point(Vec3(0, 0, 1))).print();
     return 0;
 }
