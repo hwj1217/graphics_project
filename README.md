@@ -21,7 +21,7 @@ This is also a learning project for moving from C to C++. Stages 1–3 are writt
 | 4d | First 3D cube | C++ | Planned |
 | 5 | Full scene with Z-buffer | C++ | Planned |
 | 6 | Lighting and textures | C++ | Planned |
-| 7 | Ray tracing comparison (optional) | C++ | Planned |
+| 7 | Ray tracing comparison | C++ | Planned |
 
 ## Build and Run
 
@@ -35,7 +35,7 @@ gcc -g -Wall -Wextra edgefunction.c -o edgefunction
 ./edgefunction
 
 # C++ stages
-g++ -g -Wall -Wextra math3d.cpp -o math3d
+g++ -std=c++17 -g -Wall -Wextra -Wpedantic math3d.cpp -o math3d
 ./math3d
 ```
 
