@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <cmath>
 
+constexpr float PI = 3.14159265f;
+
 struct Vec3 {
     float x, y, z;
 
@@ -20,7 +22,7 @@ struct Vec3 {
         return (x * v.x + y * v.y + z * v.z);
     }
     float length() const {    // 向量長度
-        return (sqrtf(dot(*this)));    // dot(*this) 為跟自己內積
+        return (std::sqrt(dot(*this)));    // dot(*this) 為跟自己內積
     }
     Vec3 normalize() const {
         float l = length();
@@ -43,11 +45,11 @@ struct Vec4 {
     Vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
 
     static Vec4 point(const Vec3& v) {    // w = 1
-        return Vec4 (v.x, v.y, v.z, 1.0);
+        return Vec4 (v.x, v.y, v.z, 1.0f);
     }
 
     static Vec4 direction(const Vec3& v) {    // w = 0
-        return Vec4 (v.x, v.y, v.z, 0.0);
+        return Vec4 (v.x, v.y, v.z, 0.0f);
     }
 
     void print() const {
@@ -96,10 +98,12 @@ struct Mat4 {
 
     static Mat4 rotateZ(float angle) {
         Mat4 result = Mat4::identity();
-        result.m[0][0] = cosf(angle);
-        result.m[0][1] = -sinf(angle);
-        result.m[1][0] = sinf(angle);
-        result.m[1][1] = cosf(angle);
+        float c = std::cos(angle);
+        float s = std::sin(angle);
+        result.m[0][0] = c;
+        result.m[0][1] = -s;
+        result.m[1][0] = s;
+        result.m[1][1] = c;
         return result;
     }
 
@@ -126,7 +130,7 @@ struct Mat4 {
     }
 
     static float radians(float degrees) {
-        return degrees * (float)M_PI / 180.0f;
+        return degrees * PI / 180.0f;
     }
 
     Vec4 operator*(const Vec4& v) const {
@@ -139,7 +143,7 @@ struct Mat4 {
     }
 };
 
-int main(void) {
+int main() {
     Mat4 T = Mat4::translate(5, 0, 0);
     Mat4 R = Mat4::rotateZ(Mat4::radians(90));
     Vec4 p = Vec4::point(Vec3(1, 0, 0));
