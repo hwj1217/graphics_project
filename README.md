@@ -17,8 +17,8 @@ This is also a learning project for moving from C to C++. Stages 1–3 are writt
 | 3 | Filled triangles with edge functions and barycentric interpolation | C | Done |
 | 4a | `Vec3` vector class | C++ | Done |
 | 4b | `Mat4`, `Vec4`, homogeneous coordinates | C++ | Done |
-| 4c | Projection: model → view → projection → viewport | C++ | In progress |
-| 4d | First 3D cube | C++ | Planned |
+| 4c | Projection: model → view → projection → viewport | C++ | Done |
+| 4d | First 3D cube | C++ | In progress |
 | 5 | Full scene with Z-buffer | C++ | Planned |
 | 6 | Lighting and textures | C++ | Planned |
 | 7 | Ray tracing comparison | C++ | Planned |
