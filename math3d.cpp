@@ -178,13 +178,13 @@ int main() {
     Mat4 P = Mat4::identity();
     P.m[3][2] = -1.0f;
     P.m[3][3] = 0.0f;
+    P.m[2][2] = -11.0f / 9.0f;
+    P.m[2][3] = -20.0f / 9.0f;
 
-    Vec4 q1 = P * Vec4::point(Vec3(1, 1, -2));
-    Vec4 q2 = P * Vec4::point(Vec3(1, 1, -4));
-    q1.print();
-    q2.print();
-
-    printf("q1 after divide: %.2f %.2f %.2f\n", q1.x / q1.w, q1.y / q1.w, q1.z / q1.w);
-    printf("q2 after divide: %.2f %.2f %.2f\n", q2.x / q2.w, q2.y / q2.w, q2.z / q2.w);
+    float zs[] = {-1.0f, -5.5f, -10.0f};
+    for(float z : zs) {
+        Vec4 q = P * Vec4::point(Vec3(1, 1, z));
+        printf("z = %6.2f -> ndc z = %.3f\n", z, q.z / q.w);
+    }
     return 0;
 }
