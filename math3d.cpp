@@ -111,6 +111,17 @@ struct Mat4 {
         return result;
     }
 
+    static Mat4 perspective(float fov, float aspect, float n, float f) {
+        float s = 1.0f / std::tan(fov / 2.0f);
+        Mat4 result;
+        result.m[0][0] = s / aspect;
+        result.m[1][1] = s;
+        result.m[2][2] = -(f + n) / (f - n);
+        result.m[2][3] = -2.0f * f * n / (f - n);
+        result.m[3][2] = -1.0f;
+        return result;
+    }
+
     static Mat4 lookAt(const Vec3& eye, const Vec3& target, const Vec3& up) {
         Vec3 f = (target - eye).normalize();
         Vec3 r = f.cross(up).normalize();
@@ -175,11 +186,8 @@ int main() {
     (view3 * Vec4::point(Vec3(0, 0, 0))).print();
     (view3 * Vec4::point(Vec3(0, 0, 1))).print();
 
-    Mat4 P = Mat4::identity();
-    P.m[3][2] = -1.0f;
-    P.m[3][3] = 0.0f;
-    P.m[2][2] = -11.0f / 9.0f;
-    P.m[2][3] = -20.0f / 9.0f;
+    Mat4 P = Mat4::perspective(Mat4::radians(90.0f), 1.0f, 1.0f, 10.0f);
+    P.print();
 
     float zs[] = {-1.0f, -5.5f, -10.0f};
     for(float z : zs) {
