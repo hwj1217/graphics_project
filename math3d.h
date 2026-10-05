@@ -4,8 +4,6 @@
 #include <cstdio>
 
 constexpr float PI = 3.14159265f;
-constexpr int WIDTH = 800;
-constexpr int HEIGHT = 600;
 
 struct Vec3 {
     float x, y, z;

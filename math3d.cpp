@@ -1,5 +1,8 @@
 #include "math3d.h"
 
+constexpr int WIDTH = 800;
+constexpr int HEIGHT = 600;
+
 int main() {
     Mat4 view3 = Mat4::lookAt(Vec3(5, 0, 0), Vec3(0, 0, 0), Vec3(0, 1, 0));
     view3.print();
