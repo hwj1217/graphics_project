@@ -23,3 +23,4 @@ int main() {
     printf("pixel = (%.2f, %.2f)\n", x_pixel, y_pixel);
     return 0;
 }
+
