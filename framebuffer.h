@@ -19,13 +19,13 @@ struct Framebuffer {
 };
 
 void set_pixel(int x, int y, Color c) {
-    
+
 }
 
 void clear(Color c) {
     for(int y = 0; y < Framebuffer.height; y++) {
         for(int x = 0; x < Framebuffer.width; x++) {
-            
+
         }
     }
 }
