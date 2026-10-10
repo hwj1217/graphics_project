@@ -35,8 +35,8 @@ gcc -g -Wall -Wextra edgefunction.c -o edgefunction
 ./edgefunction
 
 # C++ stages
-g++ -std=c++17 -g -Wall -Wextra -Wpedantic math3d.cpp -o math3d
-./math3d
+g++ -std=c++17 -g -Wall -Wextra -Wpedantic cube.cpp -o build/cube
+./build/cube
 ```
 
 PPM files can be opened with most image viewers.
