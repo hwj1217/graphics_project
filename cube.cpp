@@ -1,5 +1,6 @@
 #include <iostream>
 #include <array>
+#include <cmath>
 #include "framebuffer.h"
 #include "raster.h"
 #include "math3d.h"
@@ -22,6 +23,15 @@ bool check_winding(const std::array<Vec3, 8>& verts, const std::array<Tri, 12>& 
         }
     }
     return ok;
+}
+
+void draw_edge(Framebuffer& fb, const Vec3& p, const Vec3& q, Color c) {
+    int x0 = static_cast<int> (std::floor(p.x));
+    int y0 = static_cast<int> (std::floor(p.y));
+    int x1 = static_cast<int> (std::floor(q.x));
+    int y1 = static_cast<int> (std::floor(q.y));
+
+    draw_line(fb, x0, y0, x1, y1, c);
 }
 
 int main() {
@@ -72,6 +82,16 @@ int main() {
 
         std::cout << "clip.w = " << clip.w << ", screen " << i << " = ";
         screen[i].print();
+    }
+
+    for(size_t i = 0; i < tris.size(); i++) {
+        const Vec3& a = screen[tris[i][0]];
+        const Vec3& b = screen[tris[i][1]];
+        const Vec3& c = screen[tris[i][2]];
+
+        draw_edge(fb, a, b, Color{255, 255, 255});
+        draw_edge(fb, b, c, Color{255, 255, 255});
+        draw_edge(fb, c, a, Color{255, 255, 255});
     }
 
     fb.write_ppm("cube.ppm");
