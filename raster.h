@@ -1,8 +1,49 @@
 #pragma once
 
 #include <algorithm>
+#include <cstdlib>
+#include <utility>
 #include "framebuffer.h"
 #include "math3d.h"
+
+inline void draw_line(Framebuffer& fb, int x0, int y0, int x1, int y1, Color c) {
+    bool steep = false;
+    if(std::abs(y1 - y0) > std::abs(x1 - x0)) {
+        steep = 1;
+
+        std::swap(x0, y0);
+        std::swap(x1, y1);
+    }
+
+    if(x0 > x1) {
+        std::swap(x0, x1);
+        std::swap(y0, y1);
+    }
+
+    int dx = x1 - x0;
+    int dy = y1 - y0;
+    int step = (dy < 0 ? -1 : 1);
+    if(dy < 0) {
+        dy = -dy;
+    }
+    int error = 0;
+    int y = y0;
+
+    for(int x = x0; x <= x1; x++) {
+        if(steep) {
+            fb.set_pixel(y, x, c);
+        }
+        else {
+            fb.set_pixel(x, y, c);
+        }
+
+        error += 2 * dy;
+        if(error > dx) {
+            y += step;
+            error -= 2 * dx;
+        }
+    }
+}
 
 inline float edge_function(const Vec3& a, const Vec3& b, const Vec3& p) {
     return (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
