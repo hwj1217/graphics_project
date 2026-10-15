@@ -70,7 +70,7 @@ inline void draw_triangle(Framebuffer& fb, const Vec3& v0, const Vec3& v1, const
 
     for(int y = min_y; y <= max_y; y++) {
         for(int x = min_x; x <= max_x; x++) {
-            Vec3 p = Vec3{x + 0.5f, y + 0.5f, 0.0f};
+            Vec3 p = Vec3{static_cast<float> (x) + 0.5f, static_cast<float> (y) + 0.5f, 0.0f};
 
             float e0 = edge_function(v1, v2, p);
             float e1 = edge_function(v2, v0, p);

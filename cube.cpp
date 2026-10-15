@@ -41,7 +41,7 @@ int main() {
 
     Mat4 M = Mat4::identity();
     Mat4 V = Mat4::lookAt(Vec3(3, 2, 4), Vec3(0, 0, 0), Vec3(0, 1, 0));
-    Mat4 P = Mat4::perspective(Mat4::radians(60.0f), static_cast<float>(fb.width) / fb.height, 1.0f, 10.0f);
+    Mat4 P = Mat4::perspective(Mat4::radians(60.0f), static_cast<float> (fb.width) / static_cast<float> (fb.height), 1.0f, 10.0f);
 
     Mat4 mvp = P * V * M;
 
@@ -74,8 +74,8 @@ int main() {
         float y_ndc = clip.y / clip.w;
         float z_ndc = clip.z / clip.w;
 
-        float x_screen = (x_ndc + 1) * (fb.width * 0.5f);
-        float y_screen = (1 - y_ndc) * (fb.height * 0.5f);
+        float x_screen = (x_ndc + 1) * (static_cast<float> (fb.width) * 0.5f);
+        float y_screen = (1 - y_ndc) * (static_cast<float> (fb.height) * 0.5f);
         float z_screen = z_ndc;
 
         screen[i] = {x_screen, y_screen, z_screen};
