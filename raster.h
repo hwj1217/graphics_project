@@ -9,7 +9,7 @@
 inline void draw_line(Framebuffer& fb, int x0, int y0, int x1, int y1, Color c) {
     bool steep = false;
     if(std::abs(y1 - y0) > std::abs(x1 - x0)) {
-        steep = 1;
+        steep = true;
 
         std::swap(x0, y0);
         std::swap(x1, y1);
@@ -47,6 +47,10 @@ inline void draw_line(Framebuffer& fb, int x0, int y0, int x1, int y1, Color c) 
 
 inline float edge_function(const Vec3& a, const Vec3& b, const Vec3& p) {
     return (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
+}
+
+inline bool is_back_facing(const Vec3& a, const Vec3& b, const Vec3& c) {
+    return (edge_function(a, b, c) >= 0);    // 結果等於零時三角形面積為零，當作背面三角形計算
 }
 
 inline void draw_triangle(Framebuffer& fb, const Vec3& v0, const Vec3& v1, const Vec3& v2, Color c) {

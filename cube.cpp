@@ -94,6 +94,13 @@ int main() {
         const Vec3& b = screen[tris[i][1]];
         const Vec3& c = screen[tris[i][2]];
 
+        bool back = is_back_facing(a, b, c);
+        if(back) {
+            std::cout << "tri" << i << " is back facing: " << edge_function(a, b, c) << "\n";
+            continue;
+        }
+        std::cout << "tri" << i << " is not back facing: " << edge_function(a, b, c) << "\n";
+
         draw_triangle(fb, a, b, c, face_colors[i / 2]);
     }
 
