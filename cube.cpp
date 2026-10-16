@@ -5,9 +5,12 @@
 #include "raster.h"
 #include "math3d.h"
 
+constexpr size_t NUM_TRIS = 12;
+constexpr size_t NUM_VERTS = 8;
+
 using Tri = std::array<int, 3>;
 
-bool check_winding(const std::array<Vec3, 8>& verts, const std::array<Tri, 12>& tris) {
+bool check_winding(const std::array<Vec3, NUM_VERTS>& verts, const std::array<Tri, NUM_TRIS>& tris) {
     bool ok = true;
     for(size_t i = 0; i < tris.size(); i++) {
         const Vec3& a = verts[tris[i][0]];
@@ -45,14 +48,14 @@ int main() {
 
     Mat4 mvp = P * V * M;
 
-    std::array<Vec3, 8> verts = {{
+    std::array<Vec3, NUM_VERTS> verts = {{
         {-1, -1, -1}, {1, -1, -1},
         {-1, 1, -1}, {1, 1, -1},
         {-1, -1, 1}, {1, -1, 1},
         {-1, 1, 1}, {1, 1, 1}
     }};
 
-    std::array<Tri, 12> tris = {{
+    std::array<Tri, NUM_TRIS> tris = {{
         {0, 4, 6}, {0, 6, 2},    // -x
         {4, 1, 5}, {4, 0, 1},    // -y
         {0, 2, 3}, {0, 3, 1},    // -z
@@ -65,7 +68,7 @@ int main() {
         return 1;
     }
 
-    std::array<Vec3, 8> screen;
+    std::array<Vec3, NUM_VERTS> screen;
 
     for(size_t i = 0; i < verts.size(); i++) {
         Vec4 clip = mvp * Vec4::point(verts[i]);
@@ -89,17 +92,30 @@ int main() {
         {0, 0, 255}, {0, 255, 255}, {255, 0, 0}    // x, y, z
     }};
 
+    std::array<bool, NUM_TRIS> back_facing;
     for(size_t i = 0; i < tris.size(); i++) {
         const Vec3& a = screen[tris[i][0]];
         const Vec3& b = screen[tris[i][1]];
         const Vec3& c = screen[tris[i][2]];
 
-        bool back = is_back_facing(a, b, c);
-        if(back) {
+        back_facing[i] = is_back_facing(a, b, c);
+
+        if(back_facing[i]) {
             std::cout << "tri" << i << " is back facing: " << edge_function(a, b, c) << "\n";
+        }
+        else{
+            std::cout << "tri" << i << " is not back facing: " << edge_function(a, b, c) << "\n";
+        }
+    }
+
+    for(size_t i = 0; i < tris.size(); i++) {
+        const Vec3& a = screen[tris[i][0]];
+        const Vec3& b = screen[tris[i][1]];
+        const Vec3& c = screen[tris[i][2]];
+
+        if(back_facing[i]) {
             continue;
         }
-        std::cout << "tri" << i << " is not back facing: " << edge_function(a, b, c) << "\n";
 
         draw_triangle(fb, a, b, c, face_colors[i / 2]);
     }
@@ -108,6 +124,10 @@ int main() {
         const Vec3& a = screen[tris[i][0]];
         const Vec3& b = screen[tris[i][1]];
         const Vec3& c = screen[tris[i][2]];
+
+        if(back_facing[i]) {
+            continue;
+        }
 
         draw_edge(fb, a, b, Color{0, 0, 0});
         draw_edge(fb, b, c, Color{0, 0, 0});
