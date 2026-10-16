@@ -53,12 +53,12 @@ int main() {
     }};
 
     std::array<Tri, 12> tris = {{
-        {4, 5, 7}, {4, 7, 6},    // +z
+        {0, 4, 6}, {0, 6, 2},    // -x
+        {4, 1, 5}, {4, 0, 1},    // -y
         {0, 2, 3}, {0, 3, 1},    // -z
         {1, 3, 7}, {1, 7, 5},    // +x
-        {0, 4, 6}, {0, 6, 2},    // -x
         {6, 7, 3}, {6, 3, 2},    // +y
-        {4, 1, 5}, {4, 0, 1}     // -y
+        {4, 5, 7}, {4, 7, 6}     // +z
     }};
 
     if(!check_winding(verts, tris)) {
@@ -84,14 +84,27 @@ int main() {
         screen[i].print();
     }
 
+    std::array<Color, 6> face_colors = {{
+        {255, 255, 0}, {255, 255, 255}, {0, 255, 0},    // -x, -y, -z
+        {0, 0, 255}, {0, 255, 255}, {255, 0, 0}    // x, y, z
+    }};
+
     for(size_t i = 0; i < tris.size(); i++) {
         const Vec3& a = screen[tris[i][0]];
         const Vec3& b = screen[tris[i][1]];
         const Vec3& c = screen[tris[i][2]];
 
-        draw_edge(fb, a, b, Color{255, 255, 255});
-        draw_edge(fb, b, c, Color{255, 255, 255});
-        draw_edge(fb, c, a, Color{255, 255, 255});
+        draw_triangle(fb, a, b, c, face_colors[i / 2]);
+    }
+
+    for(size_t i = 0; i < tris.size(); i++) {
+        const Vec3& a = screen[tris[i][0]];
+        const Vec3& b = screen[tris[i][1]];
+        const Vec3& c = screen[tris[i][2]];
+
+        draw_edge(fb, a, b, Color{0, 0, 0});
+        draw_edge(fb, b, c, Color{0, 0, 0});
+        draw_edge(fb, c, a, Color{0, 0, 0});
     }
 
     fb.write_ppm("cube.ppm");
